@@ -103,14 +103,14 @@ export async function compararResultados(userQuery: string, correctQuery: string
       Object.keys(row).sort().reduce((acc, key) => {
         acc[key] = row[key]
         return acc
-      }, {} as any)
+      }, {} as Record<string, unknown>)
     ).sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)))
 
     const expectedSorted = expectedData.map(row => 
       Object.keys(row).sort().reduce((acc, key) => {
         acc[key] = row[key]
         return acc
-      }, {} as any)
+      }, {} as Record<string, unknown>)
     ).sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)))
 
     const resultsMatch = JSON.stringify(userSorted) === JSON.stringify(expectedSorted)

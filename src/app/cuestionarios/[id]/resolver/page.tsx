@@ -4,7 +4,7 @@ import { useState, useEffect, use } from 'react'
 import { obtenerCuestionario } from '@/actions/cuestionarios'
 import { obtenerPreguntas } from '@/actions/preguntas'
 import { compararResultados } from '@/actions/sql'
-import { ComparisonResult } from '@/types'
+import { ComparisonResult, CuestionarioResponse, PreguntaResponse } from '@/types'
 
 interface Props {
   params: Promise<{ id: string }>
@@ -12,8 +12,8 @@ interface Props {
 
 export default function ResolverCuestionarioPage({ params }: Props) {
   const { id } = use(params)
-  const [cuestionario, setCuestionario] = useState<any>(null)
-  const [preguntas, setPreguntas] = useState<any[]>([])
+  const [cuestionario, setCuestionario] = useState<CuestionarioResponse | null>(null)
+  const [preguntas, setPreguntas] = useState<PreguntaResponse[]>([])
   const [preguntaActual, setPreguntaActual] = useState(0)
   const [respuestaUsuario, setRespuestaUsuario] = useState('')
   const [resultado, setResultado] = useState<ComparisonResult | null>(null)
@@ -167,7 +167,7 @@ export default function ResolverCuestionarioPage({ params }: Props) {
                       {resultado.userResult.data.slice(0, 10).map((row, i) => (
                         <tr key={i} className="border-b">
                           {resultado.userResult.columns?.map((col, j) => (
-                            <td key={j} className="p-2">{row[col]}</td>
+                            <td key={j} className="p-2">{String(row[col] ?? '')}</td>
                           ))}
                         </tr>
                       ))}

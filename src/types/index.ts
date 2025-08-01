@@ -22,9 +22,19 @@ export const PreguntaSchema = z.object({
 export type Cuestionario = z.infer<typeof CuestionarioSchema>
 export type Pregunta = z.infer<typeof PreguntaSchema>
 
+// Types for API responses where ObjectIds are converted to strings
+export type CuestionarioResponse = Omit<Cuestionario, '_id'> & {
+  _id: string
+}
+
+export type PreguntaResponse = Omit<Pregunta, '_id' | 'cuestionarioId'> & {
+  _id: string
+  cuestionarioId: string
+}
+
 export interface QueryResult {
   success: boolean
-  data?: any[]
+  data?: Record<string, unknown>[]
   error?: string
   columns?: string[]
   rowCount?: number

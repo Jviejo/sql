@@ -153,7 +153,7 @@ export default function LoginForm() {
           </form>
         )}
 
-        <AuthInfo />
+        {/* <AuthInfo /> */}
       </div>
     </div>
   )

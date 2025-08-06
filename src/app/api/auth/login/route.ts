@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { success: true, message: 'Código de verificación enviado a tu email' }
+      { success: true, codigo: code, message: 'Código de verificación enviado a tu email' }
     )
   } catch (error) {
     console.error('Login error:', error)

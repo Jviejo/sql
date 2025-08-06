@@ -54,6 +54,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       })
 
       const data = await response.json()
+      console.log(data, "se va a enviar el email 9")
       setCodigo(data.codigo)
      
       if (!data.success) {

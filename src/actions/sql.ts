@@ -33,9 +33,23 @@ export async function ejecutarQuery(query: string): Promise<QueryResult> {
 
     const result = await client.query(query)
     
+    // Procesar los datos para manejar campos binarios
+    const processedData = result.rows.map(row => {
+      const processedRow: Record<string, unknown> = {}
+      for (const [key, value] of Object.entries(row)) {
+        // Convertir Uint8Array (campos binarios) a string o null
+        if (value instanceof Uint8Array) {
+          processedRow[key] = value.length > 0 ? '[BINARY_DATA]' : null
+        } else {
+          processedRow[key] = value
+        }
+      }
+      return processedRow
+    })
+    
     return {
       success: true,
-      data: result.rows,
+      data: processedData,
       columns: result.fields.map(field => field.name),
       rowCount: result.rowCount || 0
     }

@@ -6,18 +6,7 @@ export default async function CuestionariosPage() {
   const cuestionarios = await obtenerCuestionarios()
 
   return (
-    <div className="container mx-auto p-6">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Cuestionarios</h1>
-        <Link 
-          href="/cuestionarios/nuevo"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        >
-          Nuevo Cuestionario
-        </Link>
-      </div>
-
-      <div className="grid gap-4">
+    <div className="grid gap-4">
         {cuestionarios.length === 0 ? (
           <div className="text-center py-8 text-gray-500">
             No hay cuestionarios disponibles
@@ -61,6 +50,5 @@ export default async function CuestionariosPage() {
           ))
         )}
       </div>
-    </div>
   )
 }

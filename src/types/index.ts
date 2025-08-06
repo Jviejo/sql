@@ -46,3 +46,30 @@ export interface ComparisonResult {
   expectedResult: QueryResult
   message: string
 }
+
+// Authentication types
+export interface User {
+  id: string
+  email: string
+  role: 'user' | 'admin'
+  createdAt: Date
+}
+
+export interface AuthContextType {
+  user: User | null
+  login: (email: string) => Promise<void>
+  verifyCode: (email: string, code: string) => Promise<void>
+  logout: () => void
+  isLoading: boolean
+}
+
+export interface LoginResponse {
+  success: boolean
+  message: string
+}
+
+export interface VerifyCodeResponse {
+  success: boolean
+  user?: User
+  message: string
+}

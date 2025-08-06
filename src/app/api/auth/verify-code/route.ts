@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { verifyCode } from '@/actions/auth'
+import  { cookies } from 'next/headers'
 
 export async function POST(request: NextRequest) {
   try {
@@ -21,6 +22,8 @@ export async function POST(request: NextRequest) {
 
     console.log('📋 Resultado de verificación:', result)
 
+    const cookieStore = await cookies()
+    cookieStore.set('auth_token', result.token || '')
     if (result.success) {
       return NextResponse.json(result)
     } else {

@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-export function middleware(request: NextRequest) {
+import { jwtVerify } from 'jose';
+
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // Rutas que requieren autenticación
@@ -18,16 +20,28 @@ export function middleware(request: NextRequest) {
   // Verificar si la ruta actual requiere autenticación
   const requiresAuth = protectedRoutes.some(route => pathname.startsWith(route))
   const requiresAdmin = adminRoutes.some(route => pathname.startsWith(route))
-
   if (requiresAuth) {
     // Para rutas protegidas, redirigir a login si no hay token
-    const token = request.cookies.get('auth_token')?.value || 
+    const token = request.cookies.get('auth_token')?.value  ||
                   request.headers.get('authorization')?.replace('Bearer ', '')
-
     if (!token) {
       return NextResponse.redirect(new URL('/login', request.url))
     }
+    const { payload } = await jwtVerify(token, new TextEncoder().encode(process.env.JWT_SECRET))
   }
+
+
+  // Validate JWT token for protected routes
+  if (requiresAdmin) {
+    const token = request.cookies.get('auth_token')?.value ||
+                  request.headers.get('authorization')?.replace('Bearer ', '')
+    if (!token) {
+      return NextResponse.redirect(new URL('/login', request.url))
+    }
+
+   
+  }
+  
 
   return NextResponse.next()
 }

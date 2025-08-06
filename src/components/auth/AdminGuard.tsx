@@ -11,7 +11,7 @@ interface AdminGuardProps {
 
 export default function AdminGuard({ children, fallback }: AdminGuardProps) {
   const { user, isLoading } = useAuth()
-
+  console.log(user, "se va a enviar el user 1")
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">

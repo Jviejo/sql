@@ -10,11 +10,11 @@ export default function Home() {
   const { user, isLoading } = useAuth();
   const router = useRouter();
 
-  useEffect(() => {
-    if (!isLoading && !user) {
-      router.push('/login');
-    }
-  }, [user, isLoading, router]);
+  // useEffect(() => {
+  //   if (!isLoading && !user) {
+  //     router.push('/login');
+  //   }
+  // }, [user, isLoading, router]);
 
   if (isLoading) {
     return (
@@ -24,9 +24,9 @@ export default function Home() {
     );
   }
 
-  if (!user) {
-    return null; // Will redirect to login
-  }
+  // if (!user) {
+  //   return null; // Will redirect to login
+  // }
 
   return (
     <div className="min-h-screen bg-gray-50">

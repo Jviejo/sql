@@ -4,15 +4,10 @@ import clientPromise from '@/lib/mongodb'
 import jwt from 'jsonwebtoken'
 import { User } from '@/types'
 import { ObjectId } from 'mongodb'
-
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key'
-
-// Store verification codes in memory (in production, use Redis or database)
-const verificationCodes = new Map<string, { code: string; expiresAt: Date }>()
 
 export async function verifyCode(email: string, code: string, codigo: string) {
   try {
-    console.log(`🔍 Verificando código para ${email}: ${code}`)
 
     // En producción, verificar el código almacenado
     if (codigo === code) {

@@ -37,7 +37,7 @@ const transporter = nodemailer.createTransport(getEmailConfig())
 export const sendVerificationCode = async (email: string, code: string) => {
   const mailOptions = {
     from: process.env.NODE_ENV === 'production' 
-      ? 'noreply@yourdomain.com' 
+      ? 'noreply@kfs.es' 
       : 'test@example.com',
     to: email,
     subject: 'Código de verificación',

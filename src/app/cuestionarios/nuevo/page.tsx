@@ -1,7 +1,11 @@
-import { crearCuestionario } from '@/actions/cuestionarios'
+import { crearCuestionario, obtenerCuestionarios } from '@/actions/cuestionarios'
 import { redirect } from 'next/navigation'
 
-export default function NuevoCuestionarioPage() {
+export default async function NuevoCuestionarioPage() {
+  // Obtener el siguiente orden
+  const cuestionarios = await obtenerCuestionarios()
+  const siguienteOrden = cuestionarios.length > 0 ? Math.max(...cuestionarios.map(c => c.orden)) + 1 : 1
+
   async function handleSubmit(formData: FormData) {
     'use server'
     const result = await crearCuestionario(formData)
@@ -39,6 +43,21 @@ export default function NuevoCuestionarioPage() {
             rows={3}
             className="w-full border rounded px-3 py-2"
             placeholder="Descripción opcional del cuestionario"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="orden" className="block text-sm font-medium mb-1">
+            Orden *
+          </label>
+          <input
+            type="number"
+            id="orden"
+            name="orden"
+            required
+            min="1"
+            defaultValue={siguienteOrden}
+            className="w-20 border rounded px-3 py-2"
           />
         </div>
 

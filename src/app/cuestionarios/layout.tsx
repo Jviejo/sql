@@ -6,6 +6,7 @@ import { useAuth } from '@/contexts/AuthContext'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import SchemaPanel from './components/SchemaPanel'
+import BatchUploadButton from './components/BatchUploadButton'
 
 export default function CuestionariosLayout({
   children,
@@ -43,12 +44,15 @@ export default function CuestionariosLayout({
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-semibold">Esquema de la Base de Datos</h2>
               {user.role === 'admin' && (
-                <Link 
-                  href="/cuestionarios/nuevo"
-                  className="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600"
-                >
-                  Nuevo Cuestionario
-                </Link>
+                <div className="flex gap-2">
+                  <Link 
+                    href="/cuestionarios/nuevo"
+                    className="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600"
+                  >
+                    Nuevo Cuestionario
+                  </Link>
+                  <BatchUploadButton />
+                </div>
               )}
             </div>
             <SchemaPanel />

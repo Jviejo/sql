@@ -16,7 +16,12 @@ export default async function CuestionariosPage() {
             <div key={cuestionario._id} className="border rounded-lg p-4 shadow-sm">
               <div className="flex justify-between items-start">
                 <div className="flex-1">
-                  <h2 className="text-xl font-semibold mb-2">{cuestionario.titulo}</h2>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded">
+                      #{cuestionario.orden}
+                    </span>
+                    <h2 className="text-xl font-semibold">{cuestionario.titulo}</h2>
+                  </div>
                   {cuestionario.descripcion && (
                     <p className="text-gray-600 mb-2">{cuestionario.descripcion}</p>
                   )}

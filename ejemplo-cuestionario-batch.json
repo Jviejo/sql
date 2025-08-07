@@ -1,0 +1,36 @@
+{
+  "nombreCuestionario": "Funciones de Cadena y Fechas en SQL",
+  "descripcion": "Cuestionario para validar el conocimiento de funciones SQL aplicadas a manipulación de cadenas de texto y fechas",
+  "preguntas": [
+    {
+      "pregunta": "Obtén la longitud de la cadena 'Programación' usando una función SQL",
+      "respuestaCorrecta": "SELECT LENGTH('Programación');",
+      "explicacion": "La función LENGTH() devuelve el número de caracteres de una cadena",
+      "orden": 1
+    },
+    {
+      "pregunta": "Convierte la cadena 'hello world' a mayúsculas usando una función SQL",
+      "respuestaCorrecta": "SELECT UPPER('hello world');",
+      "explicacion": "La función UPPER() convierte todos los caracteres de una cadena a mayúsculas",
+      "orden": 2
+    },
+    {
+      "pregunta": "Extrae los primeros 3 caracteres de la cadena 'PostgreSQL'",
+      "respuestaCorrecta": "SELECT LEFT('PostgreSQL', 3);",
+      "explicacion": "La función LEFT() extrae los primeros n caracteres de una cadena",
+      "orden": 3
+    },
+    {
+      "pregunta": "Obtén la fecha actual usando una función SQL",
+      "respuestaCorrecta": "SELECT CURRENT_DATE;",
+      "explicacion": "CURRENT_DATE devuelve la fecha actual del sistema",
+      "orden": 4
+    },
+    {
+      "pregunta": "Extrae el año de la fecha '2024-03-15'",
+      "respuestaCorrecta": "SELECT EXTRACT(YEAR FROM '2024-03-15');",
+      "explicacion": "EXTRACT permite extraer componentes específicos de una fecha",
+      "orden": 5
+    }
+  ]
+} 

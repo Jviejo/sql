@@ -5,6 +5,7 @@ export const CuestionarioSchema = z.object({
   _id: z.instanceof(ObjectId).optional(),
   titulo: z.string().min(1, 'El título es requerido'),
   descripcion: z.string().optional(),
+  orden: z.number().int().positive(),
   fechaCreacion: z.date().default(() => new Date()),
   activo: z.boolean().default(true),
 })

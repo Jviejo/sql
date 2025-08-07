@@ -56,6 +56,21 @@ export default async function EditarCuestionarioPage({ params }: Props) {
           />
         </div>
 
+        <div>
+          <label htmlFor="orden" className="block text-sm font-medium mb-1">
+            Orden *
+          </label>
+          <input
+            type="number"
+            id="orden"
+            name="orden"
+            required
+            min="1"
+            defaultValue={cuestionario.orden}
+            className="w-20 border rounded px-3 py-2"
+          />
+        </div>
+
         <div className="flex gap-2">
           <button
             type="submit"

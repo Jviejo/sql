@@ -20,6 +20,7 @@ export async function middleware(request: NextRequest) {
   // Verificar si la ruta actual requiere autenticación
   const requiresAuth = protectedRoutes.some(route => pathname.startsWith(route))
   const requiresAdmin = adminRoutes.some(route => pathname.startsWith(route))
+  
   if (requiresAuth) {
     // Para rutas protegidas, redirigir a login si no hay token
     const token = request.cookies.get('auth_token')?.value  ||
@@ -27,9 +28,20 @@ export async function middleware(request: NextRequest) {
     if (!token) {
       return NextResponse.redirect(new URL('/login', request.url))
     }
-    const { payload } = await jwtVerify(token, new TextEncoder().encode(process.env.JWT_SECRET))
+    
+    // Verificar que JWT_SECRET esté configurado
+    if (!process.env.JWT_SECRET) {
+      console.error('JWT_SECRET no está configurado en las variables de entorno');
+      return NextResponse.redirect(new URL('/login', request.url))
+    }
+    
+    try {
+      const { payload } = await jwtVerify(token, new TextEncoder().encode(process.env.JWT_SECRET))
+    } catch (error) {
+      console.error('Error verificando JWT:', error);
+      return NextResponse.redirect(new URL('/login', request.url))
+    }
   }
-
 
   // Validate JWT token for protected routes
   if (requiresAdmin) {
@@ -39,7 +51,19 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/login', request.url))
     }
 
-   
+    // Verificar que JWT_SECRET esté configurado
+    if (!process.env.JWT_SECRET) {
+      console.error('JWT_SECRET no está configurado en las variables de entorno');
+      return NextResponse.redirect(new URL('/login', request.url))
+    }
+    
+    try {
+      const { payload } = await jwtVerify(token, new TextEncoder().encode(process.env.JWT_SECRET))
+      // Aquí podrías verificar si el usuario tiene rol de admin
+    } catch (error) {
+      console.error('Error verificando JWT para admin:', error);
+      return NextResponse.redirect(new URL('/login', request.url))
+    }
   }
   
 
